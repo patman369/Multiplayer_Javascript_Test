@@ -5,20 +5,24 @@ module.exports = function(sio) {
 
   //constants
 
-  //game variables
-  var background;
-  var backgroundObj = [];
-  var bottomParticalObj = [];
-  var collisionObj = [];
-  var topParticalObj = [];
+ 
 
   //main functions
-
   function sendUpdate() {
     var gameState = 0; //mock gameState
     sio.emit('gameState', gameState);
   }
+  
+  //client listeners
+  module.exports = function(sio) {
+    sio.on('connection', function(socket) {
+      socket.on('disconnect', function() {
 
+      });
+    });
+  }
+  
+  
   //main loop
   function main() {
     setInterval(function() {
