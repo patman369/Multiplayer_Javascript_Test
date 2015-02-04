@@ -1,10 +1,12 @@
+console.log('room class loaded');
+
 function room() {
   //room variables
-  var backgroundImage;
-  var backgroundObj = [];
-  var bottomParticalObj = [];
-  var collisionObj = [];
-  var topParticalObj = [];
+  this.groundImage = '';
+  this.backgroundObj = [];
+  this.collisionObj = [];
+  
+  //getters & setters
 }
 
 module.exports = room;

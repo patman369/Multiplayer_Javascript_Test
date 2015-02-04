@@ -15,7 +15,9 @@ function spaceShip(navObj, graphicsObj, hullSpace, hullHealth, hullCost, turretL
   this.owner = owner;
   
   //object methods
-  
+  this.update = function() {
+    //SET UP UPDATE FUNCTION
+  }
 }
 
 module.exports = spaceShip;

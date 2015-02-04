@@ -1,9 +1,10 @@
+console.log('graphics class loaded');
 
-function graphics(length, width, texture) {
+function graphics(length, width, imageSrc) {
   //graphics variables
   this.length = length;
   this.width = width;
-  this.texture = texture;
+  this.imageSrc = imageSrc;
 }
 
 module.exports = graphics;

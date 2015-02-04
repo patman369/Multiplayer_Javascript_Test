@@ -1,10 +1,10 @@
+console.log('navigation class loaded');
 
-function navigation(x, y, xV, yV, maxV, angleHeading) {
+function navigation(x, y, V, maxV, angleHeading) {
   //navigation variables
   this.x = x;
   this.y = y;
-  this.xV = xV;
-  this.yV = yV;
+  this.V = V;
   this.maxV = maxV;
   this.angleHeading = angleHeading;
 }
