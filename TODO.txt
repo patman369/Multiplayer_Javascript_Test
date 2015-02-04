@@ -1,0 +1,34 @@
+star map {
+  background image (gif?)
+  selectable layer objects
+  moving ship layer objects
+
+  planet maps {
+    background image
+    selectable layer objects
+  
+    planet rooms {
+      background image
+      background layer objects
+      bottom partical layer objects
+      collision layer objects
+      top partical layer objects
+    }
+  }
+}
+
+//hull stats system hull(hullSpace, hullStrength, hullCost, turretLocations)
+//navigation system nav(x, y, angleHeading)
+//graphics system graphics(length, width, texture)
+
+
+TODO:
+  add ships basics as seen above
+  
+
+
+
+var square = require('./square.js');
+var mySquare = square(2);
+console.log('The area of my square is ' + mySquare.area());
+//DO THIS INSTEAD

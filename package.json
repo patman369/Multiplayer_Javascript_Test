@@ -1,0 +1,10 @@
+{
+  "name": "Stellar_Domination",
+  "version": "0.0.1",
+  "description": "Open ended space game",
+  "dependencies": {
+    "express": "^4.10.2",
+    "node-uuid": "^1.4.2",
+    "socket.io": "^1.3.2"
+  }
+}
