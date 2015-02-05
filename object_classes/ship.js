@@ -16,7 +16,9 @@ function spaceShip(navObj, graphicsObj, hullSpace, hullHealth, hullCost, turretL
   
   //object methods
   this.update = function() {
-    //SET UP UPDATE FUNCTION
+    //angle coming in degrees become radians
+    this.nav.x += this.nav.V*(Math.sin((this.nav.heading)*(Math.PI/180)));
+    this.nav.y -= this.nav.V*(Math.cos((this.nav.heading)*(Math.PI/180)));
   }
 }
 

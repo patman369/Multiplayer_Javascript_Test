@@ -23,10 +23,12 @@ star map {
 
 
 TODO:
-  SET UPDATE METHOD FOR SHIP
+  MAKE a way to only control your ship
+  SET UP full main loop
+  SET UP full render loop
+  SET UP sendUpdate function
+  SET UP proper player control listeners
   MAKE ALL EVENTS AND SOCKET LISTENERS
-  SET UP FULL UPDATE LOOP FOR GAME_CORE
-  SET UP FULL RENDER LOOP ON CLIENT
 
 
 
