@@ -12,12 +12,12 @@ document.addEventListener('keydown', function(event) {
     }
 })
 
-
-//listen for log-in prompt
-io.on('log-in request', function() {
-  var nm = prompt("Please enter name");
-  var pswrd = prompt("Please enter password");
-  var name = nm;
-  var password = pswrd;
-  io.emit('log-in responce', name, password);
+//listen for log-in prompt & check if logged in
+io.on('login request', function() {
+  if (loggedIn !== true) {
+    var nm = prompt("Please enter name:");
+    name = nm;
+    io.emit('login responce', name);
+    loggedIn = true;
+  }
 })

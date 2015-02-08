@@ -16,15 +16,11 @@ app.use('/', express.static(__dirname + '/public'));
 
 //Create a socket.io instance using server
 var sio = io.listen(server);
-//load game systems
-var graphics = require('./game_systems/graphics.js');
-var navigation = require('./game_systems/navigation.js');
 //load game object classes
-var room = require('./object_classes/room.js');
-var ship = require('./object_classes/ship.js');
-
+var rooms = require('./core_objects/rooms.js');
+var ships = require('./collision_objects/ships.js');
 //start core
-var core = require('./game_core.js')(sio, graphics, navigation, room, ship);
+var core = require('./game_core.js')(sio, rooms, ships);
 
 server.listen(gameport, function(){
   console.log('listening on ' + gameport);

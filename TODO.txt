@@ -23,12 +23,14 @@ star map {
 
 
 TODO:
-  MAKE a way to only control your ship
-  SET UP full main loop
+  Implement star map and planet map
+  SET UP full main loop for room (must update every object)
   SET UP full render loop
-  SET UP sendUpdate function
-  SET UP proper player control listeners
-  MAKE ALL EVENTS AND SOCKET LISTENERS
+  SET UP client gui
+  FINISH sendUpdate function
+  MAKE proper player control listeners
+  MAKE ALL EVENTS AND SOCKET LISTENERS  
+  MAKE full login and database
 
 
 

@@ -1,19 +1,16 @@
 //this file holds the game itself
-console.log("game core loaded");
+console.log("info: game core loaded");
 
-module.exports = function(sio, graphics, navigation, room, ship) {
+module.exports = function(sio, rooms, ships) {
 
   //temporary player array
-  var names = [];
-  var passwords = [];
+  var login = [];
   //test room
-  var nav = new navigation(200, 200, 0, 0, 0);
-  var graph = new graphics(200, 200, '/resources/spaceshipImage.png');
-  var turretLocations = [];
-  var starship = new ship(nav, graph, 1000, 2000, 500, turretLocations, 'patman');
-  var rm = new room();
-  rm.collisionObj[0] = starship;
-
+  var rm = new rooms.room();
+  
+  
+  rm.collisionObj[rm.collisionObj.length]= new ships.testShip(200, 200, 'admin');
+  
   //sets game state and sends it to client
   function sendUpdate() {
     var gameState = rm; //gameState
@@ -23,35 +20,59 @@ module.exports = function(sio, graphics, navigation, room, ship) {
   //main loop
   function main() {
     setInterval(function() {
-      rm.collisionObj[0].update(); //set update for all objects from each layer
+        for (var i=0; i<rm.collisionObj.length; i++) {//set update for all objects from each layer
+          rm.collisionObj[i].update(); 
+        }
       sendUpdate();
     }, 10);
   }
   
-  //client-event listeners
-  sio.on('connection', function(socket) {
-    
+  //CLIENT-SERVER LISTENER SOCKET
+  sio.on('connection', function(socket) {//REPLACE rm WITH FULL GAME STATE LATER
     //initial log-in request & responce
-    sio.emit('log-in request');
-    socket.on('log-in responce', function(name, password) {
-      console.log(name+' joined the game!');
-      names.push(name);
-      passwords.push(password);
-      console.log(name+' '+passwords);
+    sio.emit('login request');
+    socket.on('login responce', function(nm) {
+      console.log(nm+' joined the game!');
+      login.push(nm);
+      this.name = nm;
+      
+      //give player ship if he/she dousn't already own one
+      rm.collisionObj[rm.collisionObj.length] = new ships.testShip(200, 200, this.name);
     });
 
     //player controls
+    //will move ship if logged in as owner
     socket.on('w', function() {
-      rm.collisionObj[0].nav.V += 1;
+      for (var i=0; i<rm.collisionObj.length; i++) {
+        if (rm.collisionObj[i].owner === this.name) {
+          rm.collisionObj[i].move('forward');
+        }
+      }
     });
     socket.on('a', function() {
-      rm.collisionObj[0].nav.heading -= 10;
+      for (var i=0; i<rm.collisionObj.length; i++) {
+        if (rm.collisionObj[i].owner === this.name) {
+          rm.collisionObj[i].turn('left');
+        }
+      }
     });
     socket.on('s', function() {
-      rm.collisionObj[0].nav.V -= 1;
+      for (var i=0; i<rm.collisionObj.length; i++) {
+        if (rm.collisionObj[i].owner === this.name) {
+          rm.collisionObj[i].move('back');
+        }
+      }
     });
     socket.on('d', function() {
-      rm.collisionObj[0].nav.heading += 10;
+      for (var i=0; i<rm.collisionObj.length; i++) {
+        if (rm.collisionObj[i].owner === this.name) {
+          rm.collisionObj[i].turn('right');
+        }
+      }
+    });
+    //map key
+    socket.on('m', function() {
+      //send map info
     });
   });
   
