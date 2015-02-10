@@ -12,5 +12,7 @@ io.on('gameState', function(state) {
     var gameState = state;
     view.update(gameState);
     view.render(gameState);
+    //gui.update
+    //gui.render
 });
 

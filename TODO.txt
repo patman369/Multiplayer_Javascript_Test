@@ -1,9 +1,5 @@
-star map {
-  background image (gif?)
-  selectable layer objects
-  moving ship layer objects
-
-  planet maps {
+GAME DATA:
+  star maps {
     background image
     selectable layer objects
   
@@ -13,9 +9,6 @@ star map {
       bottom partical layer objects
       collision layer objects
       top partical layer objects
-    }
-  }
-}
 
 //hull stats system hull(hullSpace, hullStrength, hullCost, turretLocations)
 //navigation system nav(x, y, angleHeading)
