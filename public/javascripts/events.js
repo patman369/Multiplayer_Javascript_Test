@@ -1,3 +1,7 @@
+//mouse events
+document.addEventListener('click', function(event) {
+  
+})
 
 // handles client side events and send data to server
 document.addEventListener('keydown', function(event) {

@@ -33,56 +33,58 @@ module.exports = function(sio) {
     }, 10);
   }
   
-  //CLIENT-SERVER LISTENER SOCKET
-  sio.on('connection', function(socket) {//REPLACE rm WITH FULL GAME STATE LATER
+  //CLIENT OBJECT
+  sio.on('connection', function(socket) {
+    var name;
+    
     //initial log-in request & responce
     sio.emit('login request');
     socket.on('login responce', function(nm) {
       console.log(nm+' joined the game!');
       players.push(nm);
-      this.name = nm;
+      name = nm;
       
       //give player ship if he/she dousn't already own one
-      galaxy.systems[0].collisionObj[galaxy.systems[0].collisionObj.length] = new ships.testShip(200, 200, this.name);
+      galaxy.systems[0].collisionObj[galaxy.systems[0].collisionObj.length] = new ships.testShip(200, 200, name);
     });
+    
+    //movement functions
+    var move = function(direction) {
+      for (var s=0; s<galaxy.systems.length; s++) {//set update for all objects from each layer
+        for (var i=0; i<galaxy.systems[s].collisionObj.length; i++) {
+          if (galaxy.systems[s].collisionObj[i].owner === name) {
+            if (galaxy.systems[s].collisionObj[i].isSelected === true) {
+              galaxy.systems[s].collisionObj[i].move(direction);
+            }
+          }
+        }
+      }
+    }
+    var turn = function(direction) {
+      for (var s=0; s<galaxy.systems.length; s++) {//set update for all objects from each layer
+        for (var i=0; i<galaxy.systems[s].collisionObj.length; i++) {
+          if (galaxy.systems[s].collisionObj[i].owner === name) {
+            if (galaxy.systems[s].collisionObj[i].isSelected === true) {
+              galaxy.systems[s].collisionObj[i].turn(direction);
+            }
+          }
+        }
+      }
+    }
 
     //player controls
     //will move ship if logged in as owner
     socket.on('w', function() {
-      for (var s=0; s<galaxy.systems.length; s++) {//set update for all objects from each layer
-        for (var i=0; i<galaxy.systems[s].collisionObj.length; i++) {
-          if (galaxy.systems[s].collisionObj[i].owner === this.name) {
-            galaxy.systems[s].collisionObj[i].move('forward');
-          }
-        }
-      }
+      move('forward');
     });
     socket.on('a', function() {
-      for (var s=0; s<galaxy.systems.length; s++) {//set update for all objects from each layer
-        for (var i=0; i<galaxy.systems[s].collisionObj.length; i++) {
-          if (galaxy.systems[s].collisionObj[i].owner === this.name) {
-            galaxy.systems[s].collisionObj[i].turn('left');
-          }
-        }
-      }
+      turn('left');
     });
     socket.on('s', function() {
-      for (var s=0; s<galaxy.systems.length; s++) {//set update for all objects from each layer
-        for (var i=0; i<galaxy.systems[s].collisionObj.length; i++) {
-          if (galaxy.systems[s].collisionObj[i].owner === this.name) {
-            galaxy.systems[s].collisionObj[i].move('back');
-          }
-        }
-      }
+      move('back');
     });
     socket.on('d', function() {
-      for (var s=0; s<galaxy.systems.length; s++) {//set update for all objects from each layer
-        for (var i=0; i<galaxy.systems[s].collisionObj.length; i++) {
-          if (galaxy.systems[s].collisionObj[i].owner === this.name) {
-            galaxy.systems[s].collisionObj[i].turn('right');
-          }
-        }
-      }
+      turn('right');
     });
   });
   
